@@ -1,6 +1,7 @@
 # See sample code at
 #  https://raw.githubusercontent.com/CloudLabsAI-Azure/ai-developer/refs/heads/prod/CodeBase/python/lab-02.py 
-#  https://raw.githubusercontent.com/CloudLabsAI-Azure/ai-developer/refs/heads/prod/CodeBase/python/lab-03_geo_coding.py  https://raw.githubusercontent.com/CloudLabsAI-Azure/ai-developer/refs/heads/prod/CodeBase/python/lab-03_geo_coding.py 
+#  https://raw.githubusercontent.com/CloudLabsAI-Azure/ai-developer/refs/heads/prod/CodeBase/python/lab-03_geo_coding.py 
+#  https://raw.githubusercontent.com/CloudLabsAI-Azure/ai-developer/refs/heads/prod/CodeBase/python/lab-03_weather.py 
 
 import asyncio
 import logging
@@ -20,6 +21,7 @@ from semantic_kernel.connectors.ai.open_ai.prompt_execution_settings.azure_chat_
 )
 from plugins.time_plugin import TimePlugin
 from plugins.geo_coding_plugin import GeoPlugin
+from plugins.weather_plugin import WeatherPlugin
 
 # Add Logger
 logger = logging.getLogger(__name__)
@@ -69,6 +71,12 @@ async def process_message(user_input):
         plugin_name="GeoLocation",
     )
     logger.info("GeoLocation plugin loaded")
+
+    kernel.add_plugin(
+        WeatherPlugin(),
+        plugin_name="Weather",
+    )
+    logger.info("Weather plugin loaded")
 
     # Challenge 04 - Import OpenAPI Spec
     # Placeholder for OpenAPI plugin
