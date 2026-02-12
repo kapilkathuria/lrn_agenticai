@@ -8,6 +8,8 @@ from azure.ai.projects.models import ConnectionType
 from azure.ai.evaluation import evaluate, GroundednessEvaluator
 from azure.identity import DefaultAzureCredential
 
+from azure.ai.evaluation import CoherenceEvaluator, RelevanceEvaluator
+
 from chat_with_products import chat_with_products
 
 # load environment variables from the .env file at the root of this repo
@@ -32,6 +34,8 @@ evaluator_model = {
 groundedness = GroundednessEvaluator(evaluator_model)
 # </imports_and_config>
 
+coherence = CoherenceEvaluator(evaluator_model)
+relevance = RelevanceEvaluator(evaluator_model)
 
 # create a wrapper function that implements the evaluation interface for query & response evaluation
 # <evaluate_wrapper>
@@ -63,6 +67,8 @@ if __name__ == "__main__":
         evaluation_name="evaluate_chat_with_products",
         evaluators={
             "groundedness": groundedness,
+            "coherence": coherence, 
+            "relevance": relevance,
         },
         evaluator_config={
             "default": {
